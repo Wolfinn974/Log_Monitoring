@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>SIEM Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: linear-gradient(145deg, #0f2027, #203a43, #2c5364); color: #eee; padding: 20px; min-height: 100vh; }
+        h1 { color: #ff6b6b; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px;}
+        th, td { padding: 8px 12px; border-bottom: 1px solid #444; }
+        tr:nth-child(even) { background-color: #222; }
+        .alert { color: #ff6b6b; font-weight: bold; }
+        .clear-btn { background-color: #ff6b6b; color: white; border: none;
+            padding: 10px 20px; font-size: 16px; border-radius: 10px; cursor: pointer;}
+        .clear-btn:hover {background-color: #b71c1c;}
+    </style>
+</head>
+<body>
+    <h1>🔐 Alertes de Sécurité SSH</h1>
+    <table>
+        <tr>
+            <th>Horodatage</th>
+            <th>IP</th>
+            <th>Utilisateur</th>
+            <th>Message</th>
+        </tr>
+        {% for alert in alerts %}
+        <tr>
+            <td>{{ alert.timestamp }}</td>
+            <td>{{ alert.ip }}</td>
+            <td>{{ alert.username }}</td>
+            <td class="alert">{{ alert.alert }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <form action="/clear" method="post">
+    <button type="submit" class="clear-btn">🗑️ Effacer toutes les alertes</button>
+    </form>
+</body>
+</html>
